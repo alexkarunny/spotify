@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const [token, setToken] = useState<string>('')
+  const [tracks, setTracks] = useState<any>(null)
+
+
+  let client_id = 'ab2bac6379c642dd933490326c872920';
+  let client_secret = '46683288a1dc4033b021f51e1c2336b6';
+
+  useEffect(() => {
+    let querystring = require('querystring');
+    axios.post('https://accounts.spotify.com/api/token', querystring.stringify({'grant_type':'client_credentials'}), {
+      headers: {
+        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+    }).then((res) => {
+      setToken(res.data.access_token)
+      setTracks(null)
+    })
+
+  }, [])
+
+  const getTracks = () => {
+    if (token) {
+      axios.get('https://api.spotify.com/v1/playlists/5Ns7vet4SNjL4qK6umnSay/tracks', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      }).then((res) => {
+        setTracks(res.data.items)
+      })
+    }
+  }
+
+  return <div>
+    <button onClick={getTracks}>Get tracks</button>
+    {
+      tracks && tracks.map((item: any) => <div>Испольнитель: {item.track.artists[0].name} Название песни: {item.track.name}</div>)
+    }
+  </div>
 }
 
 export default App;
