@@ -7,7 +7,6 @@ export function Login() {
     let redirect_uri = 'http://localhost:3000/profile'
 
     const login = () => {
-        debugger
         let scope = 'user-read-private user-read-email ';
 
         let url = 'https://accounts.spotify.com/authorize';
