@@ -6,8 +6,6 @@ import {Profile} from "./components/Profile";
 
 function App() {
 
-
-
     return <div>
         <Routes>
             <Route path={'/'} element={<Login/>}/>

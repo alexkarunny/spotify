@@ -1,46 +1,36 @@
-import React, {useEffect, useState} from "react";
-import axios, {AxiosResponse} from "axios";
+import React, {useEffect} from "react";
 import {Playlist} from "./Playlist";
-
-
-type TrackType = {
-    artist: string
-    title: string
-}
-
-type TracksStateType = {
-    [key: string]: TrackType[]
-}
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../state/store";
+import {fetchPlaylistTC, PlaylistType} from "../state/playlist-reducer";
+import {SongsStateType} from "../state/songs-reducer";
 
 export function Profile() {
 
-const getTracks = () => {
+    const playlists = useSelector<AppRootStateType, PlaylistType[]>(state => state.playlists)
+    const songs = useSelector<AppRootStateType, SongsStateType>(state => state.songs)
+    const dispatch = useDispatch()
 
-    playlists.map((playlist) => {
-        axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, {
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
+    useEffect(() => {
+        dispatch(fetchPlaylistTC())
+    }, [])
+
+    return (
+        <div>
+            {
+                playlists.map(playlist => {
+
+                    const allSongsForPlaylist = songs[playlist.id]
+
+                    return <Playlist key={playlist.id + playlist.name}
+                                     id={playlist.id}
+                                     title={playlist.name}
+                                     description={playlist.description}
+                                     songs={allSongsForPlaylist}
+                    />
+                })
             }
-        }).then((res: AxiosResponse) => {
-            let tracksState: TracksStateType = {...tracks}
-            tracksState[playlist.id] = res.data.items.map((item: any): TrackType => {
-                return {title: item.track.name, artist: item.track.artists[0].name}
-            })
-            return tracksState
-        }).then(res => {
-            setTracks(res)
-            debugger
-        }).then(res => {
-            debugger
-        })
-    })
-}
-
-return (
-    <div>
-        <button onClick={getTracks}>Get User Info</button>
-        <Playlist/>
-    </div>
-)
+        </div>
+    )
 }
 
