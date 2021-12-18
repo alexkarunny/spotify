@@ -23,7 +23,7 @@ export const Playlist = React.memo((props: PlaylistProps) => {
             <h3>{props.description}</h3>
             {
                 props.songs.map(song => {
-                    return <Song key={song.title + song.artist} title={song.title} artist={song.artist}/>
+                    return <Song key={song.title + song.artist} title={song.title} artist={song.artist} img={song.img}/>
                 })
             }
         </div>

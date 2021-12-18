@@ -7,6 +7,7 @@ const SET_SONGS = 'SET_SONGS'
 export type SongType = {
     artist: string
     title: string
+    img: string
 }
 
 export type SongsStateType = {
@@ -53,7 +54,8 @@ export const fetchSongsTC = (playlistId: string) => (dispatch: Dispatch) => {
             debugger
             const tracks = res.data.items.map((item: any): SongType => ({
                 artist: item.track.artists[0].name,
-                title: item.track.name
+                title: item.track.name,
+                img: item.track.album.images[2].url
             }))
             dispatch(setSongsAC(playlistId, tracks))
         })
