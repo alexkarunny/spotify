@@ -8,6 +8,7 @@ import {Artist} from "./Artist";
 import {ArtistStateType, fetchArtistsTC} from "../state/artists-reducer";
 import {fetchTracksTC, TrackStateType} from "../state/tracks-reducer";
 import {Track} from "./Track";
+import {Button, ButtonGroup, Grid, Paper} from "@mui/material";
 
 export function Profile() {
 
@@ -31,38 +32,55 @@ export function Profile() {
 
     return (
         <div>
-            <button onClick={getArtists}>Get Artists</button>
-            <button onClick={getSongs}>Get Track</button>
-            {
-                playlists.map(playlist => {
-
-                    const allSongsForPlaylist = songs[playlist.id]
-
-                    return <Playlist key={playlist.id + playlist.name}
-                                     id={playlist.id}
-                                     title={playlist.name}
-                                     description={playlist.description}
-                                     songs={allSongsForPlaylist}
-                    />
-                })
-            }
-            <div>
-                <h1>Followed Artists</h1>
+            <ButtonGroup variant={"contained"}>
+                <Button onClick={getArtists}>Get Artists</Button>
+                <Button onClick={getSongs}>Get Track</Button>
+            </ButtonGroup>
+            <Grid container spacing={5}>
                 {
-                    artists.map(artist => {
-                        return <Artist key={artist.name + artist.img} artist={artist.name} img={artist.img}/>
+                    playlists.map(playlist => {
+
+                        const allSongsForPlaylist = songs[playlist.id]
+
+                        return <Grid item key={playlist.id + playlist.name}>
+                            <Paper elevation={1} style={{padding: '10px'}}>
+                                <Playlist
+                                    id={playlist.id}
+                                    title={playlist.name}
+                                    description={playlist.description}
+                                    songs={allSongsForPlaylist}
+                                />
+                            </Paper>
+
+                        </Grid>
+
                     })
                 }
-            </div>
-            <div>
-                <h1>Favourite Tracks</h1>
-                {
-                    tracks.map(track => {
-                        return <Track key={track.artist + track.img} artist={track.artist} title={track.title}
-                                      img={track.img}/>
-                    })
-                }
-            </div>
+            </Grid>
+
+            <Grid container spacing={5}>
+                <Grid item >
+                    <Paper elevation={1} style={{padding: '10px'}}>
+                        {(artists.length > 0) && <h1>Followed Artists</h1>}
+                        {
+                            artists.map(artist => {
+                                return <Artist key={artist.name + artist.img} artist={artist.name} img={artist.img}/>
+                            })
+                        }
+                    </Paper>
+                </Grid>
+                <Grid item>
+                    <Paper elevation={1} style={{padding: '10px'}}>
+                        {(tracks.length > 0) && <h1>Favourite Tracks</h1>}
+                        {
+                            tracks.map(track => {
+                                return <Track key={track.artist + track.img} artist={track.artist} title={track.title}
+                                              img={track.img}/>
+                            })
+                        }
+                    </Paper>
+                </Grid>
+            </Grid>
 
 
         </div>

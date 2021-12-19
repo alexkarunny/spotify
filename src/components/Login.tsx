@@ -1,4 +1,5 @@
 import React from "react";
+import {Button} from "@mui/material";
 
 export function Login() {
 
@@ -19,7 +20,7 @@ export function Login() {
 
     return (
         <div>
-            <button onClick={login}>Login</button>
+            <Button onClick={login} variant={"contained"} >Login</Button>
         </div>
     )
 }
