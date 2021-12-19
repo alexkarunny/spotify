@@ -58,7 +58,7 @@ export function Profile() {
                 }
             </Grid>
 
-            <Grid container spacing={5}>
+            <Grid container spacing={5} style={{marginTop: '20px'}}>
                 <Grid item >
                     <Paper elevation={1} style={{padding: '10px'}}>
                         {(artists.length > 0) && <h1>Followed Artists</h1>}
