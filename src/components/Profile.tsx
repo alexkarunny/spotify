@@ -9,6 +9,11 @@ import {ArtistStateType, fetchArtistsTC} from "../state/artists-reducer";
 import {fetchTracksTC, TrackStateType} from "../state/tracks-reducer";
 import {Track} from "./Track";
 import {Button, ButtonGroup, Grid, Paper} from "@mui/material";
+import {Routes, Route} from "react-router-dom";
+import {Layout} from "./Layout";
+import {Playlists} from "./Playlists";
+import {Artists} from "./Artists";
+import {Tracks} from "./Tracks";
 
 export function Profile() {
 
@@ -20,69 +25,18 @@ export function Profile() {
 
     useEffect(() => {
         dispatch(fetchPlaylistTC())
-    }, [])
-
-    const getArtists = () => {
         dispatch(fetchArtistsTC())
-    }
-
-    const getSongs = () => {
-        dispatch(fetchTracksTC())
-    }
+    }, [])
 
     return (
         <div>
-            <ButtonGroup variant={"contained"}>
-                <Button onClick={getArtists}>Get Artists</Button>
-                <Button onClick={getSongs}>Get Track</Button>
-            </ButtonGroup>
-            <Grid container spacing={5}>
-                {
-                    playlists.map(playlist => {
-
-                        const allSongsForPlaylist = songs[playlist.id]
-
-                        return <Grid item key={playlist.id + playlist.name}>
-                            <Paper elevation={1} style={{padding: '10px'}}>
-                                <Playlist
-                                    id={playlist.id}
-                                    title={playlist.name}
-                                    description={playlist.description}
-                                    songs={allSongsForPlaylist}
-                                />
-                            </Paper>
-
-                        </Grid>
-
-                    })
-                }
-            </Grid>
-
-            <Grid container spacing={5} style={{marginTop: '20px'}}>
-                <Grid item >
-                    <Paper elevation={1} style={{padding: '10px'}}>
-                        {(artists.length > 0) && <h1>Followed Artists</h1>}
-                        {
-                            artists.map(artist => {
-                                return <Artist key={artist.name + artist.img} artist={artist.name} img={artist.img}/>
-                            })
-                        }
-                    </Paper>
-                </Grid>
-                <Grid item>
-                    <Paper elevation={1} style={{padding: '10px'}}>
-                        {(tracks.length > 0) && <h1>Favourite Tracks</h1>}
-                        {
-                            tracks.map(track => {
-                                return <Track key={track.artist + track.img} artist={track.artist} title={track.title}
-                                              img={track.img}/>
-                            })
-                        }
-                    </Paper>
-                </Grid>
-            </Grid>
-
-
+            <Routes>
+                <Route path='/' element={<Layout/>}>
+                    {/*<Route index element={<Playlists playlists={playlists} songs={songs} />} />*/}
+                    <Route path='artists' element={<Artists artists={artists}/>}/>
+                    <Route path='tracks' element={<Tracks tracks={tracks}/>}/>
+                </Route>
+            </Routes>
         </div>
     )
 }
