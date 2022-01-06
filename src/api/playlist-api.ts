@@ -2,11 +2,14 @@ import axios from "axios";
 
 debugger
 
+
 const hash = window.location.hash
 const startPosition = hash.indexOf('=')
 const lastPosition = hash.indexOf('&')
 const token = hash.substring(startPosition + 1, lastPosition)
-sessionStorage.setItem('token', token)
+if (token) {
+    sessionStorage.setItem('token', token)
+}
 
 const instance = axios.create({
     baseURL: 'https://api.spotify.com/v1/',

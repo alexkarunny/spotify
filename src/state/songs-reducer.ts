@@ -51,7 +51,6 @@ export const setSongsAC = (playlistId: string, songs: SongType[]) => {
 export const fetchSongsTC = (playlistId: string) => (dispatch: Dispatch) => {
     playlistAPI.getSongs(playlistId)
         .then(res => {
-            debugger
             const tracks = res.data.items.map((item: any): SongType => ({
                 artist: item.track.artists[0].name,
                 title: item.track.name,

@@ -34,7 +34,6 @@ export const setArtistsAC = (artists: ArtistStateType) => {
 export const fetchArtistsTC = () => (dispatch: Dispatch) => {
     playlistAPI.getFavouriteArtists()
         .then((res) => {
-            debugger
             const artists = res.data.artists.items.map((artist: any) => {
                 return {name: artist.name, img: artist.images[2].url}
             })

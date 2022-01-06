@@ -1,0 +1,17 @@
+.menu{
+    margin: 0 auto;
+
+    height: 50px;
+    background-color: #000;
+}
+.link{
+    color: #fff;
+    text-decoration: none;
+}
+.link:hover{
+    text-decoration: underline;
+}
+.active{
+    color: #1ed760;
+    text-decoration: none;
+}
