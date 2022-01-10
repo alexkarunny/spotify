@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {fetchSongsTC, SongType} from "../state/songs-reducer";
-import {Song} from "./Song";
+import {Song} from "./Song/Song";
 import {useDispatch} from "react-redux";
 
 type PlaylistProps = {

@@ -13,15 +13,19 @@ export function Profile() {
     return (
         <div>
             <header className={classes.menu}>
-                <NavLink to='playlists' className={({isActive}) => isActive ? `${classes.active}` : `${classes.link}`} >Playlists</NavLink>
-                <NavLink to='artists' className={({isActive}) => isActive ? `${classes.active}` : `${classes.link}`}>Artists</NavLink>
-                <NavLink to='tracks' className={({isActive}) => isActive ? `${classes.active}` : `${classes.link}`}>Tracks</NavLink>
+                <ul className={classes.list}>
+                    <li className={classes.item}><NavLink to='playlists'
+                             className={({isActive}) => isActive ? `${classes.active} ${classes.link}` : `${classes.link}`}>Playlists</NavLink></li>
+                    <li className={classes.item}><NavLink to='artists'
+                             className={({isActive}) => isActive ? `${classes.active} ${classes.link}` : `${classes.link}`}>Artists</NavLink></li>
+                   <li className={classes.item}> <NavLink to='tracks'
+                             className={({isActive}) => isActive ? `${classes.active} ${classes.link}` : `${classes.link}`}>Tracks</NavLink></li>
+                </ul>
             </header>
             <Container>
                 Profile
                 <Outlet/>
             </Container>
-
 
 
         </div>
