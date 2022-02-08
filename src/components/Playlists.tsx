@@ -13,14 +13,14 @@ export const Playlists = () => {
 
     return (
         <div>
-            <Grid container spacing={5} style={{marginTop: '10px'}}>
+            <Grid container justifyContent={'center'} spacing={3} style={{marginTop: '10px'}}  >
                 {
                     playlists.map(playlist => {
 
                         const allSongsForPlaylist = songs[playlist.id]
 
-                        return <Grid item key={playlist.id + playlist.name}>
-                            <Paper elevation={1} style={{padding: '10px'}}>
+                        return <Grid item key={playlist.id + playlist.name} md={4}>
+                            <Paper elevation={1} style={{padding: '20px', backgroundColor: '#0B5E55'}}>
                                 <Playlist
                                     id={playlist.id}
                                     title={playlist.name}

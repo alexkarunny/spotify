@@ -6,6 +6,7 @@ import {AppRootStateType} from "../state/store";
 import {fetchPlaylistTC} from "../state/playlist-reducer";
 import {fetchArtistsTC} from "../state/artists-reducer";
 import {Song} from "./Song/Song";
+import {Grid, Typography} from "@mui/material";
 
 
 export const Tracks = () => {
@@ -14,15 +15,16 @@ export const Tracks = () => {
     useEffect(() => {
         dispatch(fetchTracksTC())
     }, [])
+
     return (
-        <div>
+        <Grid container justifyContent={'flex-start'} >
             {
                 tracks.map(track => {
-                    return <Song key={track.artist + track.img} artist={track.artist} title={track.title}
-                                  img={track.img}/>
+                    return <Grid item md={2}><Typography noWrap><Song key={track.artist + track.img} artist={track.artist} title={track.title}
+                                    img={track.img}/></Typography></Grid>
                 })
             }
 
-        </div>
+        </Grid>
     )
 }

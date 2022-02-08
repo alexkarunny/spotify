@@ -23,7 +23,6 @@ export function Profile() {
                 </ul>
             </header>
             <Container>
-                Profile
                 <Outlet/>
             </Container>
 

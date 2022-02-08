@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../state/store";
 import {fetchPlaylistTC} from "../state/playlist-reducer";
 import {fetchTracksTC} from "../state/tracks-reducer";
+import {Grid, Paper} from "@mui/material";
 
 type PropsType = {
     artists: ArtistStateType
@@ -17,14 +18,17 @@ export const Artists = () => {
         dispatch(fetchArtistsTC())
     }, [])
     return (
-        <div>
-            Artists
+        <Grid container justifyContent={'flex-start'} spacing={3} style={{marginTop: '10px'}} >
             {
                 artists.map(artist => {
-                    return <Artist key={artist.name + artist.img} artist={artist.name} img={artist.img}/>
+                    return <Grid item>
+                        <Paper style={{padding: '20px', backgroundColor: '#0B5E55'}}>
+                            <Artist key={artist.name + artist.img} artist={artist.name} img={artist.img}/>
+                        </Paper>
+                    </Grid>
                 })
             }
 
-        </div>
+        </Grid>
     )
 }
